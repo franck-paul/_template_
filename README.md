@@ -79,7 +79,7 @@ make_src _widgets Widgets
 make_uninstall
 ```
 
-The `_template_` plugin and others should be placed in a main folder where the above script will be placed to.
+The `_template_` plugin and others should be in a main folder where the above script will be copy in.
 
 Do `chmod +x do_src.sh` to allow execution
 
