@@ -87,7 +87,7 @@ Do `./do_src.sh module_folder_name` to run the script for the corresponding modu
 
 Example:
 
-AllPlugins (main folder)  
+`AllPlugins` (main folder)  
 |- `_template_` (this repo)  
 |- `myPlugin` (a module to update)  
 |- `myOtherPlugin` (another module to update)
