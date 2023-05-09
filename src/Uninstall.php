@@ -106,6 +106,7 @@ class Uninstall extends dcNsProcess
         }
 
         // Direct actions — WARNING: will delete without user confirmation !!!
+        // Use when module is deleted from another action (other than theme/plugin management form)
 
         $direct_actions = [
             // Cache
