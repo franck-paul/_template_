@@ -2,7 +2,7 @@
 
 Dotclear 2 template plugin
 
-## Script to move old code to new one (using src and namespaces)
+## Script to migrate old code to new one (using src and namespaces)
 
 ```language-sh
 #!/bin/sh
