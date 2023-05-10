@@ -35,8 +35,6 @@ class Install extends dcNsProcess
 
         try {
             // Init
-
-            return true;
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());
         }
