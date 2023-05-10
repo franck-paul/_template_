@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\_template_;
 
 use dcCore;
+use dcPage;
 
 /**
  * Plugin definitions
@@ -156,5 +157,20 @@ class My
         }
 
         return false;
+    }
+
+    /**
+     * Return array of module icon(s)
+     *
+     * [light_mode_icon_url, dark_mode_icon_url] or [both_modes_icon_url]
+     *
+     * @return     array
+     */
+    public static function icons(): array
+    {
+        return [
+            urldecode(dcPage::getPF(self::id() . '/icon.svg')),
+            urldecode(dcPage::getPF(self::id() . '/icon-dark.svg')),
+        ];
     }
 }
