@@ -22,9 +22,6 @@ use dcPage;
  */
 class My
 {
-    /** @var string Required php version */
-    public const PHP_MIN = '7.4';
-
     /**
      * This module id
      */
@@ -47,14 +44,6 @@ class My
     public static function path(): string
     {
         return dirname(__DIR__);
-    }
-
-    /**
-     * Check php version
-     */
-    public static function phpCompliant(): bool
-    {
-        return version_compare(phpversion(), self::PHP_MIN, '>=');
     }
 
     // Contexts
@@ -101,21 +90,21 @@ class My
             case self::INSTALL:    // Installation of module
                 return defined('DC_CONTEXT_ADMIN')
                     && dcCore::app()->auth->isSuperAdmin()   // Manageable only by super-admin
-                    && self::phpCompliant()
-                    && dcCore::app()->newVersion(self::id(), dcCore::app()->plugins->moduleInfo(self::id(), 'version'));
+                    && dcCore::app()->newVersion(self::id(), dcCore::app()->plugins->moduleInfo(self::id(), 'version'))
+                ;
 
             case self::UNINSTALL:  // Uninstallation of module
                 return defined('DC_RC_PATH')
                     && dcCore::app()->auth->isSuperAdmin()   // Manageable only by super-admin
-                    && self::phpCompliant();
+                ;
 
             case self::PREPEND:    // Prepend context
                 return defined('DC_RC_PATH')
-                    && self::phpCompliant();
+                ;
 
             case self::FRONTEND:    // Frontend context
                 return defined('DC_RC_PATH')
-                    && self::phpCompliant();
+                ;
 
             case self::BACKEND:     // Backend context
                 return defined('DC_CONTEXT_ADMIN')
@@ -124,7 +113,7 @@ class My
                         dcCore::app()->auth::PERMISSION_USAGE,
                         dcCore::app()->auth::PERMISSION_CONTENT_ADMIN,
                     ]), dcCore::app()->blog->id)
-                    && self::phpCompliant();
+                ;
 
             case self::MANAGE:      // Main page of module
                 return defined('DC_CONTEXT_ADMIN')
@@ -132,12 +121,12 @@ class My
                     && dcCore::app()->blog && dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([
                         dcCore::app()->auth::PERMISSION_ADMIN,  // Admin+
                     ]), dcCore::app()->blog->id)
-                    && self::phpCompliant();
+                ;
 
             case self::CONFIG:      // Config page of module
                 return defined('DC_CONTEXT_ADMIN')
                     && dcCore::app()->auth->isSuperAdmin()   // Manageable only by super-admin
-                    && self::phpCompliant();
+                ;
 
             case self::MENU:        // Admin menu
                 return defined('DC_CONTEXT_ADMIN')
@@ -145,7 +134,7 @@ class My
                     && dcCore::app()->blog && dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([
                         dcCore::app()->auth::PERMISSION_ADMIN,  // Admin+
                     ]), dcCore::app()->blog->id)
-                    && self::phpCompliant();
+                ;
 
             case self::WIDGETS:     // Blog widgets
                 return defined('DC_CONTEXT_ADMIN')
@@ -153,7 +142,7 @@ class My
                     && dcCore::app()->blog && dcCore::app()->auth->check(dcCore::app()->auth->makePermissions([
                         dcCore::app()->auth::PERMISSION_ADMIN,  // Admin+
                     ]), dcCore::app()->blog->id)
-                    && self::phpCompliant();
+                ;
         }
 
         return false;
