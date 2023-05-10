@@ -173,4 +173,14 @@ class My
             urldecode(dcPage::getPF(self::id() . '/icon-dark.svg')),
         ];
     }
+
+    /**
+     * Return URL regexp scheme cope by the plugin
+     *
+     * @return     string
+     */
+    public static function urlScheme(): string
+    {
+        return '/' . preg_quote(dcCore::app()->adminurl->get('admin.plugin.' . self::id())) . '(&.*)?$/';
+    }
 }
