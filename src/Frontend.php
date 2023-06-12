@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\_template_;
 
+use dcCore;
 use dcNsProcess;
 
 class Frontend extends dcNsProcess
@@ -28,6 +29,12 @@ class Frontend extends dcNsProcess
     public static function process(): bool
     {
         if (!static::$init) {
+            return false;
+        }
+
+        // Don't do things in frontend if plugin disabled
+        $settings = dcCore::app()->blog->settings->get(My::id());
+        if (!(bool) $settings->active) {
             return false;
         }
 
