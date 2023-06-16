@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\_template_;
 
 use dcCore;
 use dcPage;
+use Dotclear\Helper\L10n;
 
 /**
  * Plugin definitions
@@ -44,6 +45,16 @@ class My
     public static function path(): string
     {
         return dirname(__DIR__);
+    }
+
+    /**
+     * Set module locales.
+     *
+     * @param   string  $process    The locales process (ie filename as main, admin, …)
+     */
+    final public static function l10n(string $process): void
+    {
+        L10n::set(implode(DIRECTORY_SEPARATOR, [static::path(), 'locales', dcCore::app()->lang, $process]));
     }
 
     // Contexts
