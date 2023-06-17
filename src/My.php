@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\_template_;
 
 use dcCore;
-use dcPage;
 use Dotclear\Helper\L10n;
 
 /**
@@ -195,19 +194,62 @@ class My
     }
 
     /**
-     * Return array of module icon(s)
+     * Get modules icon URLs.
      *
-     * [light_mode_icon_url, dark_mode_icon_url] or [both_modes_icon_url]
+     * Will use SVG format is exist, else PNG
      *
-     * @return     array<string>
+     * @param   string    $suffix   Optionnal suffix (will be prefixed by - if any)
+     *
+     * @return  array<int,string>   The module icons URLs
      */
-    public static function icons(): array
+    public static function icons(string $suffix = ''): array
     {
-        // Comment second line if you only have one icon.svg for both mode
-        return [
-            urldecode(dcPage::getPF(self::id() . '/icon.svg')),         // Light (or both) mode(s)
-            urldecode(dcPage::getPF(self::id() . '/icon-dark.svg')),    // Dark mode
-        ];
+        $check = fn (string $base, string $name) => (file_exists($base . DIRECTORY_SEPARATOR . $name . '.svg') ?
+            static::fileURL($name . '.svg') :
+            (file_exists($base . DIRECTORY_SEPARATOR . $name . '.png') ?
+                static::fileURL($name . '.png') :
+                false));
+
+        $icons = [];
+        if (defined('DC_CONTEXT_ADMIN')) {
+            // Light mode version
+            if ($icon = $check(static::path(), 'icon' . ($suffix !== '' ? '-' . $suffix : ''))) {
+                $icons[] = $icon;
+            }
+            // Dark mode version
+            if ($icon = $check(static::path(), 'icon-dark' . ($suffix !== '' ? '-' . $suffix : ''))) {
+                $icons[] = $icon;
+            }
+        }
+        if (!count($icons) && $suffix) {
+            // Suffixed icons not found, try without
+            return static::icons();
+        }
+
+        return $icons;
+    }
+
+    /**
+     * Returns URL of a module file.
+     *
+     * In frontend it returns public URL,
+     * In backend it returns admin URL (or public with $frontend=true)
+     *
+     * @param   string  $resource   The resource file
+     * @param   bool    $frontend   Force to get frontend (public) URL even in backend
+     *
+     * @return  string
+     */
+    public static function fileURL(string $resource, bool $frontend = false): string
+    {
+        if (!empty($resource) && substr($resource, 0, 1) !== '/') {
+            $resource = '/' . $resource;
+        }
+        if (defined('DC_CONTEXT_ADMIN') && DC_CONTEXT_ADMIN && !$frontend) {
+            return is_null(dcCore::app()->adminurl) ? '' : urldecode(dcCore::app()->adminurl->get('load.plugin.file', ['pf' => self::id() . $resource]));
+        }
+
+        return is_null(dcCore::app()->blog) ? '' : urldecode(dcCore::app()->blog->getQmarkURL() . 'pf=' . self::id() . $resource);
     }
 
     /**
