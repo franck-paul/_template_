@@ -18,7 +18,6 @@ use dcCore;
 use dcNsProcess;
 use dcPage;
 use Dotclear\Helper\Html\Html;
-use Dotclear\Helper\Network\Http;
 use Exception;
 
 class Manage extends dcNsProcess
@@ -46,7 +45,7 @@ class Manage extends dcNsProcess
             // ToDo
 
             dcPage::addSuccessNotice(__('_template_'));
-            Http::redirect(dcCore::app()->admin->getPageURL());
+            dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());
         }
