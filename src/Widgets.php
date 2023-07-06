@@ -23,7 +23,7 @@ class Widgets
     {
     }
 
-    public static function initDefaultWidgets($w, $d)
+    public static function initDefaultWidgets(WidgetsStack $w, array $d)
     {
         $zone = dcWidgets::WIDGETS_NAV;
     }

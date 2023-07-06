@@ -16,22 +16,19 @@ namespace Dotclear\Plugin\_template_;
 
 use dcCore;
 use dcPage;
-use dcNsProcess;
+use Dotclear\Core\Process;
 use Exception;
 
-class Config extends dcNsProcess
+class Config extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::CONFIG);
-
-        return static::$init;
+        return self::status(My::checkContext(My::CONFIG));
     }
 
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -41,7 +38,7 @@ class Config extends dcNsProcess
             dcPage::addSuccessNotice(
                 __('Configuration has been successfully updated.')
             );
-            dcCore::app()->adminurl->redirect('admin.plugins', [
+            My::redirect([
                 'module' => My::id(),
                 'conf'   => '1',
                 'redir'  => dcCore::app()->admin->__get('list')->getRedir(),
@@ -55,7 +52,7 @@ class Config extends dcNsProcess
 
     public static function render(): void
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return;
         }
 

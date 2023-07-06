@@ -15,22 +15,21 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\_template_;
 
 use dcCore;
-use dcNsProcess;
 use dcPage;
+use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Html;
 use Exception;
 
-class Manage extends dcNsProcess
+class Manage extends Process
 {
-    protected static $init = false; /** @deprecated since 2.27 */
     /**
      * Initializes the page.
      */
     public static function init(): bool
     {
-        static::$init = My::checkContext(My::MANAGE);
+        self::status(My::checkContext(My::MANAGE));
 
-        return static::$init;
+        return self::status();
     }
 
     /**
@@ -38,7 +37,7 @@ class Manage extends dcNsProcess
      */
     public static function process(): bool
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return false;
         }
 
@@ -46,7 +45,7 @@ class Manage extends dcNsProcess
             // ToDo
 
             dcPage::addSuccessNotice(__('_template_'));
-            dcCore::app()->adminurl->redirect('admin.plugin.' . My::id());
+            My::redirect();
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());
         }
@@ -59,7 +58,7 @@ class Manage extends dcNsProcess
      */
     public static function render(): void
     {
-        if (!static::$init) {
+        if (!self::status()) {
             return;
         }
 
