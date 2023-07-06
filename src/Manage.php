@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\_template_;
 
 use dcCore;
-use dcPage;
+use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Html;
 use Exception;
@@ -44,7 +44,7 @@ class Manage extends Process
         try {
             // ToDo
 
-            dcPage::addSuccessNotice(__('_template_'));
+            Page::addSuccessNotice(__('_template_'));
             My::redirect();
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());
@@ -62,18 +62,18 @@ class Manage extends Process
             return;
         }
 
-        dcPage::openModule(__('_template_'));
+        Page::openModule(__('_template_'));
 
-        echo dcPage::breadcrumb(
+        echo Page::breadcrumb(
             [
                 Html::escapeHTML(dcCore::app()->blog->name) => '',
                 __('_template_')                            => '',
             ]
         );
-        echo dcPage::notices();
+        echo Page::notices();
 
         // Form
 
-        dcPage::closeModule();
+        Page::closeModule();
     }
 }
