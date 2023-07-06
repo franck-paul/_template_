@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\_template_;
 
 use dcCore;
+use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Html;
@@ -44,7 +45,7 @@ class Manage extends Process
         try {
             // ToDo
 
-            Page::addSuccessNotice(__('_template_'));
+            Notices::addSuccessNotice(__('_template_'));
             My::redirect();
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());
@@ -70,7 +71,7 @@ class Manage extends Process
                 __('_template_')                            => '',
             ]
         );
-        echo Page::notices();
+        echo Notices::GetNotices();
 
         // Form
 

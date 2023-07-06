@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\_template_;
 
 use dcCore;
-use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Process;
 use Exception;
 
@@ -35,7 +35,7 @@ class Config extends Process
         try {
             // ToDo
 
-            Page::addSuccessNotice(
+            Notices::addSuccessNotice(
                 __('Configuration has been successfully updated.')
             );
             My::redirect([
