@@ -63,7 +63,7 @@ class Manage extends Process
             return;
         }
 
-        Page::openModule(__('_template_'));
+        Page::openModule(My::name());
 
         echo Page::breadcrumb(
             [
