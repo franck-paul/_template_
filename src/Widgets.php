@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\_template_;
 
-use Dotclear\Plugin\widgets\Widgets as dotclearWidgets;
+use Dotclear\Plugin\widgets\Widgets as AppWidgets;
 use Dotclear\Plugin\widgets\WidgetsStack;
 
 class Widgets
@@ -25,6 +25,6 @@ class Widgets
 
     public static function initDefaultWidgets(WidgetsStack $w, array $d)
     {
-        $zone = dotclearWidgets::WIDGETS_NAV;
+        $zone = AppWidgets::WIDGETS_NAV;
     }
 }

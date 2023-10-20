@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\_template_;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Process;
 use Exception;
@@ -41,10 +41,10 @@ class Config extends Process
             My::redirect([
                 'module' => My::id(),
                 'conf'   => '1',
-                'redir'  => dcCore::app()->admin->__get('list')->getRedir(),
+                'redir'  => App::backend()->__get('list')->getRedir(),
             ]);
         } catch (Exception $e) {
-            dcCore::app()->error->add($e->getMessage());
+            App::error()->add($e->getMessage());
         }
 
         return true;
