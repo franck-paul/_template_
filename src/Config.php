@@ -43,8 +43,8 @@ class Config extends Process
                 'conf'   => '1',
                 'redir'  => App::backend()->__get('list')->getRedir(),
             ]);
-        } catch (Exception $e) {
-            App::error()->add($e->getMessage());
+        } catch (Exception $exception) {
+            App::error()->add($exception->getMessage());
         }
 
         return true;
