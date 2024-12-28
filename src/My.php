@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief _template_, a plugin for Dotclear 2
  *
@@ -48,8 +49,6 @@ class My extends MyPlugin
      * Makes an url including optionnal parameters.
      *
      * @param      array   $params  The parameters
-     *
-     * @return     string
      *
      * @deprecated since 2.27, use My::manageUrl($param)
      */
