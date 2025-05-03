@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief _template_, a plugin for Dotclear 2
  *
@@ -40,7 +41,7 @@ class Uninstall extends Process
         // $var   = My::id(); // Var sub-folder
 
         // Database table name
-        // $table = App::con()->prefix() . '_template_';
+        // $table = '_template_';
 
         $user_actions = [
 
