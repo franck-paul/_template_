@@ -98,5 +98,5 @@ Do:
 - `./do_src.sh myPlugin`
 - `./do_src.sh myOtherPlugin`
 
-See <https://open-time.net/2023/05/10/Modele-de-plugin> for explanations (in French)
+See <https://open-time.net/post/2023/05/10/Modele-de-plugin> for explanations (in French)
 
