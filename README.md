@@ -5,7 +5,7 @@ Dotclear 2 template plugin
 ## Script to migrate old code to new one (using src and namespaces)
 
 ```language-sh
-#!/bin/sh
+#!/bin/bash
 
 # Check 1st parameter (module name = directory)
 if [ -z "$1" ]; then
@@ -20,13 +20,20 @@ if [ ! -d "$1" ]; then
 fi
 
 MODULE="$1"
+# Check module name without leading /
+if [[ "$MODULE" =~ '/'$ ]]; then
+  MODULE=${MODULE%?}
+fi
 
 # Check module src subfolder
 if [ ! -d "$MODULE/src" ]; then
   mkdir "$MODULE/src"
 fi
 
-MODEL="_template_"
+DIRECTORY=$(dirname "$0")
+MODEL="$DIRECTORY/_template_"
+
+# Helpers
 update_ns()
 {
   perl -i -pe"s/_template_/$MODULE/g" "$1"
@@ -36,6 +43,13 @@ make_my()
   if [ ! -f "$MODULE/src/My.php" ]; then
     cp "$MODEL/src/My.php" "$MODULE/src/My.php"
     update_ns "$MODULE/src/My.php"
+  fi
+}
+make_install()
+{
+  if [ ! -f "$MODULE/src/Install.php" ]; then
+    cp "$MODEL/src/Install.php" "$MODULE/src/Install.php"
+    update_ns "$MODULE/src/Install.php"
   fi
 }
 make_uninstall()
@@ -74,6 +88,9 @@ make_src _public Frontend
 make_src _config Config
 make_src index Manage
 make_src _widgets Widgets
+
+# Add a src/Install.php if not exists
+make_install
 
 # Add a src/Uninstall.php
 make_uninstall
