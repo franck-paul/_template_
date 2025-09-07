@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief _template_, a plugin for Dotclear 2
  *
@@ -14,10 +15,12 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\_template_;
 
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 
-class Prepend extends Process
+class Prepend
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::PREPEND));

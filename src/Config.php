@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief _template_, a plugin for Dotclear 2
  *
@@ -16,11 +17,13 @@ namespace Dotclear\Plugin\_template_;
 
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 use Exception;
 
-class Config extends Process
+class Config
 {
+    use TraitProcess;
+
     public static function init(): bool
     {
         return self::status(My::checkContext(My::CONFIG));
