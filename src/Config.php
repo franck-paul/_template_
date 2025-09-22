@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\_template_;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\Process\TraitProcess;
 use Exception;
 
@@ -38,7 +37,7 @@ class Config
         try {
             // ToDo
 
-            Notices::addSuccessNotice(
+            App::backend()->notices()->addSuccessNotice(
                 __('Configuration has been successfully updated.')
             );
             My::redirect([
